@@ -44,16 +44,20 @@ const UserLiked = (props) => {
       <div className="content flex column">
         <h1>My list</h1>
         <div className="grid flex">
-          {movies.map((movie, index) => {
-            return (
-              <Card
-                movieData={movie}
-                index={index}
-                key={movie.id}
-                isLiked={true}
-              />
-            );
-          })}
+          {movies ? (
+            movies.map((movie, index) => {
+              return (
+                <Card
+                  movieData={movie}
+                  index={index}
+                  key={movie.id}
+                  isLiked={true}
+                />
+              );
+            })
+          ) : (
+            <h1>No Movies List</h1>
+          )}
         </div>
       </div>
     </Container>
