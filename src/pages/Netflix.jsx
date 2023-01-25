@@ -26,33 +26,11 @@ const Netflix = (props) => {
   const movies = useSelector((state) => state.netflix.movies);
 
   const dispatch = useDispatch();
-  const fetchData = async () => {
-    // const { data } = await axios.get("movie_dict.pkl");
-    // var jpickle = require("jpickle");
 
-    // var unpickled = jpickle.loads(data);
-
-    // console.log(unpickled);
-    // console.log(data.toString());
-    // const nodePickle = require("node-pickle");
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const rooms = 20;
-    axios
-      .post(`http://127.0.0.1:8000/predict_price?rooms=${rooms}`)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   useEffect(() => {
     dispatch(getGenres());
     // const fs = require("fs");
-    fetchData();
     // console.log(movie_dict);
     // const jpickled = jpickle.loads(data);
     // const binary = fs.readFileSync("./movie_dict.pkl", "binary");
