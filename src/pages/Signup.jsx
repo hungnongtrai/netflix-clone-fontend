@@ -48,7 +48,7 @@ const Signup = (props) => {
           <div className="form">
             <input
               type="email"
-              placeholder="Emial Address"
+              placeholder="Email Address"
               name="email"
               value={formValues.email}
               onChange={(e) =>
