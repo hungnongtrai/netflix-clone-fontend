@@ -9,6 +9,7 @@ import { Buffer } from "buffer";
 import Recommend from "./pages/Recommend";
 import TVShows from "./pages/TVShows";
 import UserLiked from "./pages/UserLiked";
+import Search from "./pages/Search";
 
 // @ts-ignore
 window.Buffer = Buffer;
@@ -29,6 +30,7 @@ const App = (props) => {
         <Route exact path="/mylist" element={<UserLiked />}></Route>
         <Route exact path="/recommend" element={<Recommend />}></Route>
         <Route exact path="/" element={<Netflix />}></Route>
+        <Route exact path="/search/:movieName" element={<Search />}></Route>
       </Routes>
     </BrowserRouter>
   );

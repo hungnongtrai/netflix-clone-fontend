@@ -26,6 +26,7 @@ const Navbar = ({ isScrolled }) => {
   });
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   return (
     <Container>
       <nav className={`flex ${isScrolled ? "scrolled" : ""}`}>
@@ -61,6 +62,15 @@ const Navbar = ({ isScrolled }) => {
               onBlur={() => {
                 setShowSearch(false);
                 setInputHover(false);
+              }}
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  navigate(`/${"search"}/${searchValue}`);
+                }
               }}
             />
           </div>
