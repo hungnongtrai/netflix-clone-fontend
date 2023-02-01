@@ -27,7 +27,6 @@ const Netflix = (props) => {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(getGenres());
     // const fs = require("fs");
@@ -63,9 +62,9 @@ const Netflix = (props) => {
             >
               <FaPlay /> Play
             </button>
-            <button className="flex j-center a-center">
+            {/* <button className="flex j-center a-center">
               <AiOutlineInfoCircle /> More Info
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
