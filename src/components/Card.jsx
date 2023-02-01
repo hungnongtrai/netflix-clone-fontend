@@ -98,7 +98,7 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
                 )}
               </div>
               <div className="info">
-                <BiChevronDown title="More Info" />
+                {/* <BiChevronDown title="More Info" /> */}
               </div>
             </div>
             <div className="genres flex">
