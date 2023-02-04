@@ -5,13 +5,18 @@ import Header from "../components/Header";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 /**
  * @author
  * @function Login
  **/
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 const Login = (props) => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -22,7 +27,15 @@ const Login = (props) => {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
     } catch (err) {
       console.log(err);
+      setOpen(true);
     }
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -30,6 +43,11 @@ const Login = (props) => {
   });
   return (
     <Container>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Please check your email and password, or create an account.
+        </Alert>
+      </Snackbar>
       <BackgroundImage />
       <div className="content">
         <Header />
