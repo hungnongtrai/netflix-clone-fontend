@@ -10,6 +10,7 @@ import Recommend from "./pages/Recommend";
 import TVShows from "./pages/TVShows";
 import UserLiked from "./pages/UserLiked";
 import Search from "./pages/Search";
+import { ToastProvider } from "react-toast-notifications";
 
 // @ts-ignore
 window.Buffer = Buffer;
@@ -20,19 +21,21 @@ window.Buffer = Buffer;
 
 const App = (props) => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/login" element={<Login />}></Route>
-        <Route exact path="/signup" element={<Signup />}></Route>
-        <Route exact path="/player/:movieId" element={<Player />}></Route>
-        <Route exact path="/movies" element={<Movies />}></Route>
-        <Route exact path="/tv" element={<TVShows />}></Route>
-        <Route exact path="/mylist" element={<UserLiked />}></Route>
-        <Route exact path="/recommend" element={<Recommend />}></Route>
-        <Route exact path="/" element={<Netflix />}></Route>
-        <Route exact path="/search/:movieName" element={<Search />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <ToastProvider placement="bottom-left">
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/login" element={<Login />}></Route>
+          <Route exact path="/signup" element={<Signup />}></Route>
+          <Route exact path="/player/:movieId" element={<Player />}></Route>
+          <Route exact path="/movies" element={<Movies />}></Route>
+          <Route exact path="/tv" element={<TVShows />}></Route>
+          <Route exact path="/mylist" element={<UserLiked />}></Route>
+          <Route exact path="/recommend" element={<Recommend />}></Route>
+          <Route exact path="/" element={<Netflix />}></Route>
+          <Route exact path="/search/:movieName" element={<Search />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
   );
 };
 

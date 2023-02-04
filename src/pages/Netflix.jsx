@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import backgroundImage from "../assets/home.jpg";
 import MovieLogo from "../assets/homeTitle.webp";
@@ -10,23 +10,63 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import Slider from "../components/Slider";
 import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { useToasts } from "react-toast-notifications";
+
 // import jpickle from "jpickle";
 // import pickle from "pickle";
 /**
  * @author
  * @function Netflix
  **/
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 const Netflix = (props) => {
   const navigate = useNavigate();
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [noti, setNoti] = useState("");
+  const { addToast } = useToasts();
 
+  const [typeNoti, setTypeNoti] = useState("success");
+  console.log("Test open", open);
+  console.log("Test noti", noti);
+  console.log("Test type", typeNoti);
   const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
   const movies = useSelector((state) => state.netflix.movies);
 
   const dispatch = useDispatch();
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpen(false);
+  };
+
+  const addToastHandler = useCallback((msg, type) => {
+    addToast(msg, { appearance: type, autoDismiss: true });
+  }, []);
+
+  const handleAddToList = () => {
+    // setOpen(true);
+    // setNoti("You added the movie to list");
+    // setTypeNoti("success");
+  };
+  const handleLike = () => {
+    // console.log("Test like");
+    // setOpen(true);
+    // setNoti("You liked!");
+    // setTypeNoti("success");
+  };
+  const handleDislike = () => {
+    // setOpen(true);
+    // setNoti("You Disliked!");
+    // setTypeNoti("error");
+  };
   useEffect(() => {
     dispatch(getGenres());
     // const fs = require("fs");
@@ -44,6 +84,11 @@ const Netflix = (props) => {
   };
   return (
     <Container>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Test
+        </Alert>
+      </Snackbar>
       <Navbar isScrolled={isScrolled} />
       <div className="hero">
         <img
@@ -68,7 +113,7 @@ const Netflix = (props) => {
           </div>
         </div>
       </div>
-      <Slider movies={movies} />
+      <Slider movies={movies} addToastHandler={addToastHandler} />
     </Container>
   );
 };

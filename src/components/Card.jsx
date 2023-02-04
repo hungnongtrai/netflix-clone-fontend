@@ -19,9 +19,15 @@ import { removeFromLikedMovies } from "../store";
  * @function Card
  **/
 
-export default React.memo(function Card({ movieData, isLiked = false }) {
+export default React.memo(function Card({
+  movieData,
+  isLiked = false,
+  addToastHandler,
+}) {
   const [isHovered, setIsHovered] = useState(false);
+  console.log("Hover", isHovered);
   const [email, setEmail] = useState(undefined);
+  console.log("Email", email);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,6 +45,7 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
           data: movieData,
         }
       );
+      addToastHandler(`You added ${movieData.name} to my list!`, "success");
     } catch (err) {
       console.log(err);
     }
@@ -82,8 +89,20 @@ export default React.memo(function Card({ movieData, isLiked = false }) {
                   title="play"
                   onClick={() => navigate(`/player/${movieData.id}`)}
                 />
-                <RiThumbUpFill title="Like" />
-                <RiThumbDownFill title="Dislike" />
+
+                <RiThumbUpFill
+                  title="Like"
+                  onClick={() => {
+                    addToastHandler(`You liked ${movieData.name}!`, "success");
+                  }}
+                />
+
+                <RiThumbDownFill
+                  title="Dislike"
+                  onClick={() => {
+                    addToastHandler(`You disliked ${movieData.name}!`, "error");
+                  }}
+                />
                 {isLiked ? (
                   <BsCheck
                     title="Remove Form List"

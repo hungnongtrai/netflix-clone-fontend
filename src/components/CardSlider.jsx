@@ -8,7 +8,11 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
  * @function CardSlider
  **/
 
-export default React.memo(function CardSlider({ data, title }) {
+export default React.memo(function CardSlider({
+  data,
+  title,
+  addToastHandler,
+}) {
   const [showControls, setShowControls] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const listRef = useRef();
@@ -40,7 +44,14 @@ export default React.memo(function CardSlider({ data, title }) {
         </div>
         <div className="flex slider" ref={listRef}>
           {data.map((movie, index) => {
-            return <Card movieData={movie} index={index} key={movie.id} />;
+            return (
+              <Card
+                movieData={movie}
+                index={index}
+                key={movie.id + index}
+                addToastHandler={addToastHandler}
+              />
+            );
           })}
         </div>
         <div
